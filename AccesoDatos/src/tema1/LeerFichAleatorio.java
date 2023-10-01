@@ -13,27 +13,28 @@ public class LeerFichAleatorio {
 		int id, dep,posicion;
 		Double salario;
 		char apellido[]=new char[10];
-		char aux;
-		posicion=0;
-		for(;;) {
+		char aux;//Creamos un char aux en el cual vamos a ir guardando las letras que leemos 
+		posicion=0;//Indicamos la posicion en la cual vamos a empezar a leer el fichero
+		//Creamos un bucle infinito que la salida sea cuando haya llegado a final del fichero
+for(;;) {
 			file.seek(posicion);
 			id=file.readInt();//sacamos id porque estamos en la posicion 0
 			for (int i = 0; i < apellido.length; i++) {
 				aux=file.readChar();
 				apellido[i]=aux;
 			}
-			//el array a string
+			//Creamos un String apartir de otro
 			String apellidos=new String(apellido);
 			dep=file.readInt();
 			salario=file.readDouble();
 			if(id>0) 
 				System.out.printf("ID: %s, Apellido: %s , Departamento :%d,Salario: %.2f %n",id, apellidos.trim(),dep,salario);
 			;
-			posicion=posicion+36;
-			if(file.getFilePointer()==file.length())break;
+			posicion=posicion+36;//36 porque es el tamaño que tiene cada registro de nuestro archivo  
+			if(file.getFilePointer()==file.length())break;//la salida del bucle infinito
 			
 		}
-		file.close();
+		file.close();// cerramos el fichero
 		
 
 	}
