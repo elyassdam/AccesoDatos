@@ -18,7 +18,7 @@ public class LeerFichAleatorio {
 		//Creamos un bucle infinito que la salida sea cuando haya llegado a final del fichero
 for(;;) {
 			file.seek(posicion);
-			id=file.readInt();//sacamos id porque estamos en la posicion 0
+			id=file.readInt();//sacamos id porque estamos en la posicion 0.
 			for (int i = 0; i < apellido.length; i++) {
 				aux=file.readChar();
 				apellido[i]=aux;
