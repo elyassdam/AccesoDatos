@@ -22,26 +22,19 @@ public class EscribirFicheroAleatorioAlfinal {
 			file.writeInt(dep[i]);//insertar departamento
 			file.writeDouble(salario[i]);//inserta salario
 		}
-		
 		 buffer=null;
-		 String apellidoAniadido="GONZALEZ";
+		 String apellidoAniadido="REY";
 		 Double salarioAniadido=1230.87;
 		 int idAniadidio=20;
 		 int depAniadido=10;
 		 long posicion=(idAniadidio-1)*36;
 		 file.seek(posicion);
 		 file.writeInt(idAniadidio);
-		 file.
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		
-		
-		
+		 buffer=new StringBuffer(apellidoAniadido);
+		 buffer.setLength(10);
+		file.writeChars(buffer.toString());
+		 file.writeInt(depAniadido);
+		 file.writeDouble(salarioAniadido);
 		file.close();//Cerramos el fichero
 		}
 		
