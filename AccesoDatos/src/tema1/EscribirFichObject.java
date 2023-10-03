@@ -39,11 +39,9 @@ public class EscribirFichObject {
 }catch(EOFException eo) {
 	dataIN.close();
 }
-	
-	
-	
 	}
 }
-
+	
+	
 	
 

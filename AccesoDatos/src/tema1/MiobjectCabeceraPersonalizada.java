@@ -39,23 +39,17 @@ public class MiobjectCabeceraPersonalizada {
 		
 	ObjectInputStream dataIN=new ObjectInputStream(new FileInputStream(fichero));
 	try {while(true) {
-		try {
 				persona=(Persona)dataIN.readObject();
 				System.out.println(persona.toString());
 				
 			
-
-}catch(EOFException eo) {
-	dataIN.close();
-	break;
-}
-}
-} catch (Exception e) {
-e.printStackTrace();
-} finally {
-dataIN.close();
-}
 	}
+}catch(EOFException eo) {
+	System.out.println("ERROR DE EFOE");
+}
+	dataIN.close();
+	
+}
 }
 
 
