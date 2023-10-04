@@ -29,12 +29,12 @@ for(;;) {
 			String apellidos=new String(apellido);
 			dep=file.readInt();
 			salario=file.readDouble();
-			if(id>0) {
+			if(id==4) {
 				System.out.printf("ID: %s, Apellido: %s , Departamento :%d,Salario: %.2f %n",id, apellidos.trim(),dep,salario);
-			;}
+			break;
+			}
 			if(posicion>=file.length()) {
-				System.out.printf("ID: %s, Apellido: %s , Departamento :%d,Salario: %.2f %n",id, apellidos.trim(),dep,salario);
-
+System.out.println("esto no esta en el fichero");
 			}else {
 				file.seek(posicion);
 				id=file.readInt();
