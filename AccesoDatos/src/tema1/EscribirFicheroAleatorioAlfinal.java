@@ -22,7 +22,8 @@ public class EscribirFicheroAleatorioAlfinal {
 			file.writeInt(dep[i]);//insertar departamento
 			file.writeDouble(salario[i]);//inserta salario
 		}
-		 buffer=null;
+//A partir de aqui empezamos a añadir al final del fichero que hemos creado anteriormente.
+		 buffer=null;//el buffer lo iniciamos a null para que no tengamos q crear un buffer nuevo.
 		 String apellidoAniadido="REY";
 		 Double salarioAniadido=1230.87;
 		 int idAniadidio=20;
@@ -31,7 +32,7 @@ public class EscribirFicheroAleatorioAlfinal {
 		 file.seek(posicion);
 		 file.writeInt(idAniadidio);
 		 buffer=new StringBuffer(apellidoAniadido);
-		 buffer.setLength(10);
+		 buffer.setLength(10);// Establecemos a 10 la longitud del apellido 
 		file.writeChars(buffer.toString());
 		 file.writeInt(depAniadido);
 		 file.writeDouble(salarioAniadido);
