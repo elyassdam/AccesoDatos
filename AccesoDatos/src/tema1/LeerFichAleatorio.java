@@ -8,7 +8,7 @@ import java.util.Iterator;
 public class LeerFichAleatorio {
 
 	public static void main(String[] args) throws IOException {
-		File fichRandom=new File("AleatorioEmple.dat");
+		File fichRandom=new File("fic_accesso_aleat.dat");
 		RandomAccessFile file=new RandomAccessFile(fichRandom,"r");
 		int id, dep,posicion;
 		Double salario;
