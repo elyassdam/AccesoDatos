@@ -13,7 +13,7 @@ public class BufferedReaderWriter {
 			public static void main(String[] args) throws IOException {
 try {
 	
-		BufferedReader reader=new BufferedReader(new FileReader("C:\\Users\\damSegundo\\eclipse-workspace\\AccesoDatos\\src\\tema1\\LeerFichBuffer.java"));
+		BufferedReader reader=new BufferedReader(new FileReader("C:\\Users\\Yassin\\eclipse-workspace\\AccesoDatos\\src\\tema1\\LeerFichBuffer.java"));
 		String linea;
 		BufferedWriter writer=new BufferedWriter (new FileWriter ("salida.txt"));
 		while((linea=reader.readLine())!=null) {
