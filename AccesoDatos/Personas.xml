@@ -1,0 +1,14 @@
+<ListaPersonasMunicipio>
+  <DatosPersona>
+    <nombre>Ana</nombre>
+    <edad>12</edad>
+  </DatosPersona>
+  <DatosPersona>
+    <nombre>Luis Miguel</nombre>
+    <edad>14</edad>
+  </DatosPersona>
+  <DatosPersona>
+    <nombre>Alicia</nombre>
+    <edad>18</edad>
+  </DatosPersona>
+</ListaPersonasMunicipio>
