@@ -2,9 +2,12 @@ package tema1;
 
 import org.w3c.dom.*;
 
+import javafx.scene.Node;
+import javafx.scene.text.Text;
+
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
-
+import javax.lang.model.element.Element;
 import javax.xml.parsers.*;
 import java.io.*;
 import javax.xml.transform.stream.*;
