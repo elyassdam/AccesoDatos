@@ -8,6 +8,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.*;
 import javax.xml.transform.dom.*;
+import org.w3c.dom.*;
 import java.io.*;
 public class Convertidor  {
 public static void main(String[] args)throws IOException {

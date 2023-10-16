@@ -1,7 +1,6 @@
 package tema1;
 import java.io.File;
 
-import javax.lang.model.element.Element;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 public class LecturaEmpleadosXML {

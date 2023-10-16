@@ -1,16 +1,17 @@
 package tema1;
 
-import org.w3c.dom.*;
 
-import javafx.scene.Node;
-import javafx.scene.text.Text;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
-import javax.lang.model.element.Element;
 import javax.xml.parsers.*;
 import java.io.*;
 import javax.xml.transform.stream.*;
+
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 public class CrearEmpleadoXML {
 
@@ -63,7 +64,7 @@ public class CrearEmpleadoXML {
 
 	// Insercion de los datos del empleado
 	static void CrearElemento(String datoEmple, String valor, Element raiz, Document document) {
-		Element elem = (Element) document.createElement(datoEmple);
+	Element elem =  document.createElement(datoEmple);
 		Text text = document.createTextNode(valor);
 		raiz.appendChild(elem);
 		elem.appendChild(text);
