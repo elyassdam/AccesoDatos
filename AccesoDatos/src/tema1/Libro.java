@@ -1,9 +1,9 @@
 package tema1;
-import javax.xml
-@XmlType (proporder = {"autor","nombre", "editorial", "isbn"})
 
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlType (propOrder = {"autor","nombre", "editorial", "isbn"})
 public class Libro {
-	
 	
 	private String nombre;
 	private String autor;

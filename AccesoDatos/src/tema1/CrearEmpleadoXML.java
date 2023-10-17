@@ -41,7 +41,7 @@ public class CrearEmpleadoXML {
 				salario = file.readDouble();
 				if (id > 0) {
 					Element raiz = (Element) document.createElement("empleado");
-					document.getDocumentElement().appendChild((Node) raiz);
+					document.getDocumentElement().appendChild( raiz);
 					// añadir id
 					CrearElemento("id", Integer.toString(id), raiz, document);
 					CrearElemento("apellido", apellidos.trim(), raiz, document);
