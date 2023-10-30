@@ -9,5 +9,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jakarta"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JXStream"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/db4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
