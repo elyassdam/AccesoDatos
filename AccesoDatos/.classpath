@@ -6,7 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jakarta"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jakarta"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JXStream"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

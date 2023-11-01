@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+
+
+
+//import jakarta.xml.bind.JAXBContext;
+//import jakarta.xml.bind.JAXBException;
+//import jakarta.xml.bind.Marshaller;
 public class Ejemplo1_JXB {
 private static final String MIARCHIVO_XML="./libreria.xml";
 public static void main(String[] args) throws JAXBException, IOException {
