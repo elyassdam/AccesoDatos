@@ -8,6 +8,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jakarta"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JXStream"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
+=======
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/db4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL"/>
+>>>>>>> branch 'main' of https://github.com/elyassdam/AccesoDatos.git
 	<classpathentry kind="output" path="bin"/>
 </classpath>
