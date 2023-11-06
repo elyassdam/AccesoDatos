@@ -28,18 +28,11 @@ public class MainJSQLITE {
             }
             resul.close();
             sentencia.close();
+            conexion.close();
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+        } 
+}
 }
