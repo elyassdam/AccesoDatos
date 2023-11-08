@@ -8,8 +8,8 @@ public static void main(String[] args)  throws
 	//CONEXION A MYSOL
 	Class. forName("com.mysql.cj.jdbc.Driver");
 	Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/ejemplo", "ejemplo", "ejemplo");
-	String sql="create view vista_empleados_madrid_inner as SELECT empleados.*,departamentos.loc FROM empleados INNER JOIN departamentos ON empleados.dept_no = departamentos.dept_no WHERE departamentos.loc = 'Madrid'";
-			
+	//String sql="create view vista_empleados_madrid_inner as SELECT empleados.*,departamentos.loc FROM empleados INNER JOIN departamentos ON empleados.dept_no = departamentos.dept_no WHERE departamentos.loc = 'Madrid'";
+	String sql="select * from departamentos";
 	Statement sentencia = conexion. createStatement () ;
 	boolean valor = sentencia. execute (sql) ;
 	if (valor) {
