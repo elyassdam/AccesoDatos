@@ -7,29 +7,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PreparatedInsertar {
+public class PreparatedModificar {
 
 		public static void main(String[] args)  throws
 		ClassNotFoundException, SQLException {
 		//CONEXION A MYSOL
 		Class. forName("com.mysql.cj.jdbc.Driver");
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/sanidad", "sanidad", "sanidad");
-		//Insertamos una fila en la tabla pacientes con nuevo paciente
-		String sql="Insert into pacientes values (?,?,?,?,?,?,?)";
+		//Realizamos una modificación en la tabla de medicos
+		String sql="UPDATE medicos set Especialidad=? where Especialidad=? AND Apellidos=? ";
 		PreparedStatement sentencia = conexion.prepareStatement(sql) ;
-		int id=18;
-		String nombre="Marco";
-		String apellido="Polo";
-		Date fecha=new Date(1985-8-20);
-		String direccion="San Juan de la Cruz,32";
-		String numero="555-890-1879";
-		sentencia.setInt(1, id);
-		sentencia.setString(2, nombre);
-		sentencia.setString(3, apellido);
-		sentencia.setDate(4, fecha);
-		sentencia.setString(5, direccion);
-		sentencia.setString(6, numero);
-		sentencia.setInt(7,2);
+		sentencia.setString(1, "Geriatra");//cambiar el nombre de la especialidad a Geriartra
+		sentencia.setString(2, "Médico de Urgencias");//Es la especialidad de la que queremos cambiar
+		sentencia.setString(3,"Sánchez Ruiz");//El apellido que tiene aparte de ser medico de urgencias
 int filas=sentencia.executeUpdate();
 
 		if(filas>0) {
