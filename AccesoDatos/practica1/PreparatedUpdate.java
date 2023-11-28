@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PreparatedInsertar {
+public class PreparatedUpdate {
 
 		public static void main(String[] args)  throws
 		ClassNotFoundException, SQLException {
@@ -15,7 +15,7 @@ public class PreparatedInsertar {
 		Class. forName("com.mysql.cj.jdbc.Driver");
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/sanidad", "sanidad", "sanidad");
 		//Insertamos una fila en la tabla pacientes con nuevo paciente
-		String sql="insert into pacientes values(?,?,?,?,?,?,?)";
+		String sql="UPDATE pacientes";
 		PreparedStatement sentencia = conexion.prepareStatement(sql) ;
 		int id=18;
 		String nombre="Marco";
