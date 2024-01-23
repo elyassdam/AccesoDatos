@@ -14,7 +14,7 @@ public class DCLEliminarPermisos {
 	Class. forName("com.mysql.cj.jdbc.Driver");
 	Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/sanidad", "sanidad", "sanidad");
 	//Insertamos una fila en la tabla pacientes con nuevo paciente
-	String sql="REVOKE  SELECT, INSERT, UPDATE, DELETE ON sanidad.* FROM 'sanidad'@'localhost'";
+	String sql="REVOKE  SELECT, INSERT, UPDATE, DELETE ON sanidad.* FROM 'practica'@'localhost'";
 	Statement sentencia = conexion. createStatement () ;
 	boolean valor = sentencia. execute (sql) ;
 	if (!valor) {

@@ -14,7 +14,7 @@ public class DCLCRUD {
 	Class. forName("com.mysql.cj.jdbc.Driver");
 	Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/sanidad", "sanidad", "sanidad");
 	//Insertamos una fila en la tabla pacientes con nuevo paciente
-	String sql="GRANT SELECT, INSERT, UPDATE, DELETE ON sanidad.* TO 'sanidad'@'localhost'";
+	String sql="GRANT SELECT, INSERT, UPDATE, DELETE ON sanidad.* TO 'practica'@'localhost'";
 	Statement sentencia = conexion. createStatement () ;
 	boolean valor = sentencia. execute (sql) ;
 	if (!valor) {

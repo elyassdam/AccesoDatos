@@ -17,7 +17,7 @@
 			//Realizamos una modificación en la tabla de medicos
 			String sql="SELECT * from medicos where Especialidad=? ";
 			PreparedStatement sentencia = conexion.prepareStatement(sql) ;
-			sentencia.setString(1, "Médico de Urgencias");//Es la especialidad de la que queremos consultar
+			sentencia.setString(1, "Pediatra");//Es la especialidad de la que queremos consultar
 			ResultSet rs=sentencia.executeQuery();
 	
 			while(rs.next()) {

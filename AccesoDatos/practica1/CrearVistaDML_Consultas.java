@@ -13,7 +13,7 @@ public static void main(String[] args)  throws
 	//CONEXION A MYSOL
 	Class. forName("com.mysql.cj.jdbc.Driver");
 	Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/sanidad", "sanidad", "sanidad");
-	String sql="CREATE VIEW Vista_DiagnosticoConPacientes AS  SELECT C.Diagnostico, CONCAT(P.Nombre, ' ', P.Apellido) AS NombrePaciente FROM Consultas C JOIN Pacientes P ON C.PacienteID = P.IDPaciente";			
+	String sql="CREATE VIEW Vista_DiagnosticoConPacientes1 AS  SELECT C.Diagnostico, CONCAT(P.Nombre, ' ', P.Apellido) AS NombrePaciente FROM Consultas C JOIN Pacientes P ON C.PacienteID = P.IDPaciente";			
 	Statement sentencia = conexion. createStatement () ;
 	boolean valor = sentencia. execute (sql) ;
 	if (valor) {

@@ -14,7 +14,7 @@ public class ProcedimientoCambioHospitalMedico {
 
 	            
 	            int idMedico = 1; 
-	            int nuevoHospital = 1; 
+	            int nuevoHospital = 3; 
 
 	            String sql = "{call CambiarHospitalMedico(?,?)}";
 

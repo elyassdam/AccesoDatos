@@ -18,7 +18,7 @@ public class PreparatedInsertar {
 		String sql="insert into pacientes values(?,?,?,?,?,?,?)";
 
 		PreparedStatement sentencia = conexion.prepareStatement(sql) ;
-		int id=18;
+		int id=19;
 		String nombre="Marco";
 		String apellido="Polo";
 		Date fecha=new Date(1985-8-20);

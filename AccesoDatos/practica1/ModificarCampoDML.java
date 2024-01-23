@@ -17,7 +17,7 @@ public class ModificarCampoDML {
 		Class. forName("com.mysql.cj.jdbc.Driver");
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/sanidad", "sanidad", "sanidad");
 		//Insertamos una fila en la tabla pacientes con nuevo paciente
-		String sql="UPDATE pacientes set nombre='Francisco' where nombre='Marco'";
+		String sql="UPDATE pacientes set nombre='Marco' where nombre='Luis'";
 		Statement sentencia = conexion. createStatement () ;
 		boolean valor = sentencia. execute (sql) ;
 		if (valor) {
