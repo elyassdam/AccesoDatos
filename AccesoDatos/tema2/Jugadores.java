@@ -1,12 +1,23 @@
 package tema2;
 
+import calses.Paises;
+
 public class Jugadores {
 	private String nombre;
 	private String deporte ;
 	private String ciudad;
 	private int edad;
+	Paises pais;
 	public Jugadores() {
 		
+	}
+	public Jugadores(String nombre, String deporte, String ciudad, int edad,Paises pais) {
+		super();
+		this.nombre = nombre;
+		this.deporte = deporte;
+		this.ciudad = ciudad;
+		this.edad = edad;
+		this.pais=pais;
 	}
 	public Jugadores(String nombre, String deporte, String ciudad, int edad) {
 		super();
@@ -38,5 +49,11 @@ public class Jugadores {
 	}
 	public void setEdad(int edad) {
 		this.edad = edad;
+	}
+	public Paises getPais() {
+		return pais;
+	}
+	public void setPais(Paises pais) {
+		this.pais = pais;
 	}
 }
