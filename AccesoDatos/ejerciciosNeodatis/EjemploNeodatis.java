@@ -1,11 +1,8 @@
-package tema2;
+package ejerciciosNeodatis;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
-import org.neodatis.odb.ObjectValues;
 import org.neodatis.odb.Objects;
-import org.neodatis.odb.Values;
-import org.neodatis.odb.impl.core.query.values.ValuesCriteriaQuery;
 
  
 public class EjemploNeodatis {
@@ -26,18 +23,10 @@ while(objects.hasNext()) {
 	Jugadores jug =objects.next();
 	System.out.printf("%d: %s,%s,%s %n",i++,jug.getNombre(),jug.getCiudad(),jug.getEdad());
 }
-//Muestra alias 
-Values valores = odb.getValues(new ValuesCriteriaQuery(Jugadores.class).field("nombre").field("ciudad"));
-while(valores.hasNext()) {
-	ObjectValues objectValues=(ObjectValues)valores.next ();
-
-System.out.printf("%s, Ciudad : %s %n",objectValues.getByAlias("nombre"),objectValues.getByIndex(1));
-}
 odb.close();
-
-}
 }
 
+	}
 	
 	
 	
