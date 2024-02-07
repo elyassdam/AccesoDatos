@@ -11,7 +11,7 @@ import org.neodatis.odb.Values;
 import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.values.ValuesCriteriaQuery;
 
-public class SumaEdades {
+public class EjercicioSumaEdades {
 
     public static void main(String[] args) {
     	ODB odb = ODBFactory.open("EQUIPOS.db");
@@ -35,8 +35,7 @@ public class SumaEdades {
         Values groupby = odb.getValues(new ValuesCriteriaQuery(
                 Jugadores.class, Where.isNotNull("pais.nombrepais"))
                 .field("pais.nombrepais").count("nombre").max("edad").sum("edad").groupBy("pais.nombrepais"));
-
-        if (groupby.size() == 0)
+       if (groupby.size() == 0)
             System.out.println("La consulta no devuelve datos");
         else {
             try {
