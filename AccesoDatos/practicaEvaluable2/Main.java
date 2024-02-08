@@ -5,14 +5,34 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
+
+
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import org.neodatis.odb.ODB;
+import org.neodatis.odb.ODBFactory;
+import org.neodatis.odb.Objects;
+import org.neodatis.odb.core.query.IQuery;
+import org.neodatis.odb.core.query.criteria.Where;
+import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 
 public class Main {
     // Atributo de clase static para la base de datos Neodatis
@@ -20,7 +40,6 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
         // Conectar con la base de datos MySQL
-    	Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conexionMySQL = null;
         try {
             // Datos de conexión a la base de datos MySQL
@@ -30,252 +49,242 @@ public class Main {
 
             // Establecer la conexión
             conexionMySQL = DriverManager.getConnection(url, usuario, contraseña);
-            System.out.println("Conexión a la base de datos MySQL establecida.");
-        } catch (SQLException e) {
-            System.err.println("Error al conectar con la base de datos MySQL: " + e.getMessage());
-        }
-        
+
             // Abrir la base de datos Neodatis
             bd = ODBFactory.open("SanidadNeodatis.db");
             System.out.println("Base de datos Neodatis abierta.");
-        
 
-        // Cerrar la conexión con la base de datos MySQL
+            // Insertar datos en Neodatis
+            /*InsertarMedicamento(conexionMySQL);
+            InsertarReceta(conexionMySQL);*/
+            InsertarPaciente(conexionMySQL);
+            InsertarMedico(conexionMySQL);
+            InsertarConsulta(conexionMySQL);
+
+        } catch (SQLException e) {
+            System.err.println("Error al conectar con la base de datos MySQL: " + e.getMessage());
+        } finally {
+            // Cerrar la conexión con la base de datos MySQL
             if (conexionMySQL != null) {
                 try {
-                	conexionMySQL.close();
+                    conexionMySQL.close();
                     System.out.println("Conexión a la base de datos MySQL cerrada.");
                 } catch (SQLException e) {
                     System.err.println("Error al cerrar la conexión con la base de datos MySQL: " + e.getMessage());
                 }
             }
-        // Continuar con la implementación de otros métodos...
-
-   
-        // Cerrar la conexión con la base de datos MySQL
-        if (conexionMySQL != null) {
-            try {
-            	conexionMySQL.close();
-                System.out.println("Conexión a la base de datos MySQL cerrada.");
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar la conexión con la base de datos MySQL: " + e.getMessage());
-            }
         }
+     
     }
-    
-    public static  void InsertarPaciente(Connection conexion) throws SQLException{
+
+    public static void InsertarPaciente(Connection conexion) throws SQLException {
         String consulta = "SELECT * FROM Pacientes";
-    	Statement sentencia =(Statement)conexion.createStatement() ;
-    	ResultSet resul =sentencia.executeQuery(consulta);
-    	while(resul.next()) {
-    		if(comprobarPaciente(resul.getInt(1))==false) {
-    			Pacientes paciente = new Pacientes(
-                        resul.getInt(1),
-                        resul.getString("nombre"),
-                        resul.getString("apellido"),
-                        resul.getDate("fecha_nacimiento"),
-                        resul.getString("direccion"),
-                        resul.getString("telefono"));
-                       bd.store(paciente);
-                       System.out.println("Paciente Insertado en Neodatis correctamente");
-    		}else {
-    			System.out.println("El paciente ya existe en Neodatis");
-                        
-    			
-    			
-    		}
-    	}
-    }
-    public static void InsertarMedico(Connection conexion) throws SQLException {
-        // Consultar los médicos existentes en la base de datos MySQL
-        String consulta = "SELECT * FROM Medicos";
-    	Statement sentencia =(Statement)conexion.createStatement() ;
-
-             ResultSet resultSet = sentencia.executeQuery(consulta);
-            while (resultSet.next()) {
-                // Verificar si el médico ya existe en la base de datos Neodatis
-                int idMedico = resultSet.getInt(1); // Suponiendo que la columna 1 es el ID del médico
-                if (!comprobarMedico(idMedico)) {
-                    // Crear un objeto Medico con la información obtenida de MySQL
-                    Medicos medico = new Medicos(
-                            idMedico,
-                            resultSet.getString("nombre"),
-                            resultSet.getString("especialidad")
-                    );
-
-                    // Insertar el objeto Medico en Neodatis
-                    bd.store(medico);
-
-                    System.out.println("Médico insertado en Neodatis.");
-                } else {
-                    System.out.println("El médico ya existe en Neodatis.");
-                }
-            }
-        }
-    public static void InsertarConsulta(Connection conexion) throws SQLException {
-        String sql = "SELECT * FROM Consultas";
         Statement sentencia = conexion.createStatement();
-        ResultSet resul = sentencia.executeQuery(sql);
-
+        ResultSet resul = sentencia.executeQuery(consulta);
         while (resul.next()) {
-            // Verificar si la consulta ya existe en la base de datos Neodatis
-            int idConsulta = resul.getInt(1);
-            if (!comprobarConsulta(idConsulta)) {
-                // Obtener el ID del paciente y del médico
-                int idPaciente = resul.getInt("id_paciente");
-                int idMedico = resul.getInt("id_medico");
-
-                // Obtener el paciente correspondiente de Neodatis
-                Pacientes paciente = obtenerPaciente(idPaciente);
-                Medicos medico = obtenerMedico(idMedico);
-
-                if (paciente != null) {
-                    // Crear un objeto Consulta con la información obtenida de MySQL
-                    Consultas consulta = new Consulta(
-                            idConsulta,
-                            paciente, 
-                            medico, 
-                            resul.getDate("FechaConsulta"),
-                            resul.getTime("HoraConsulta"),
-                            resul.getString("Sintomas"),
-                            resul.getString("Diagnostico"),
-                            resul.getString("Tratamiento")
-                    );
-
-                    // Insertar el objeto Consulta en Neodatis
-                    bd.store(consulta);
-
-                    System.out.println("Consulta insertada en Neodatis.");
-                } else {
-                    System.out.println("No se encontró el paciente en Neodatis.");
-                }
+            if (!comprobarPaciente(resul.getInt(1))) {
+                Pacientes paciente = new Pacientes(
+                        resul.getInt(1),
+                        resul.getString("Nombre"),
+                        resul.getString("Apellido"),
+                        resul.getDate("FechaNacimiento"),
+                        resul.getString("Direccion"),
+                        resul.getString("Telefono"));
+                bd.store(paciente);
+                System.out.println("Paciente insertado en Neodatis correctamente");
             } else {
-                System.out.println("La consulta ya existe en Neodatis.");
+                System.out.println("El paciente ya existe en Neodatis");
             }
         }
+        bd.commit();
+        resul.close();
     }
-    public static void InsertarRecetas(Connection conexion) throws SQLException {
+
+    public static void InsertarMedico(Connection conexion) throws SQLException {
+        String consulta = "SELECT * FROM Medicos";
+        Statement sentencia = conexion.createStatement();
+        ResultSet resul = sentencia.executeQuery(consulta);
+        while (resul.next()) {
+            if (!comprobarMedico(resul.getInt(1))) {
+                Medicos medico = new Medicos(
+                        resul.getInt(1),
+                        resul.getString("Nombre"),
+                        resul.getString("Especialidad")
+                );
+                bd.store(medico);
+                System.out.println("Médico insertado en Neodatis correctamente");
+            } else {
+                System.out.println("El médico ya existe en Neodatis");
+            }
+        }
+        bd.commit();
+        resul.close();
+    }
+
+    public static void InsertarConsulta(Connection conexion) throws SQLException {
+        String consulta = "SELECT * FROM Consultas";
+        Statement sentencia = conexion.createStatement();
+        ResultSet resul = sentencia.executeQuery(consulta);
+        while (resul.next()) {
+            if (!comprobarConsulta(resul.getInt(1))) {
+                Pacientes paciente = obtenerPaciente(resul.getInt("IDPaciente"));
+                Medicos medico = obtenerMedico(resul.getInt("IDMedico"));
+                Consultas consultaObj = new Consultas(
+                        resul.getInt(1),
+                        paciente,
+                        medico,
+                        resul.getDate("FechaConsulta"),
+                        resul.getTime("Horaconsulta"),
+                        resul.getString("Sintomas"),
+                        resul.getString("Diagnostico"),
+                        resul.getString("Tratamiento")
+                );
+                bd.store(consultaObj);
+                System.out.println("Consulta insertada en Neodatis correctamente");
+            } else {
+                System.out.println("La consulta ya existe en Neodatis");
+            }
+        }
+        bd.commit();
+        resul.close();
+    }
+
+    public static void InsertarMedicamento(Connection conexion) throws SQLException {
+        String consulta = "SELECT * FROM Medicamentos";
+        Statement sentencia = conexion.createStatement();
+        ResultSet resul = sentencia.executeQuery(consulta);
+        while (resul.next()) {
+            if (!comprobarMedicamento(resul.getInt(1))) {
+                Medicamentos medicamento = new Medicamentos(
+                        resul.getInt(1),
+                        resul.getString("NombreMedicamento"),
+                        resul.getString("descripcion")
+                );
+                bd.store(medicamento);
+                System.out.println("Medicamento insertado en Neodatis correctamente");
+            } else {
+                System.out.println("El medicamento ya existe en Neodatis");
+            }
+        }
+        bd.commit();
+        resul.close();
+    }
+
+    public static void InsertarReceta(Connection conexion) throws SQLException {
+        int cont = 0;
         String sql = "SELECT * FROM Recetas";
         Statement sentencia = conexion.createStatement();
         ResultSet resul = sentencia.executeQuery(sql);
 
         while (resul.next()) {
-            // Verificar si la consulta ya existe en la base de datos Neodatis
-            int idConsulta = resul.getInt(1);
-            if (!comprobarConsulta(idConsulta)) {
-                // Obtener el ID del paciente y del médico
-                int idPaciente = resul.getInt("id_paciente");
-              
-
-                // Obtener el paciente correspondiente de Neodatis
-                Pacientes paciente = obtenerPaciente(idPaciente);
-
-                if (paciente != null) {
-                    // Crear un objeto Consulta con la información obtenida de MySQL
-                    Recetas consulta = new Recetas(
-                            idConsulta,
-                            paciente, 
-                            resul.getDate("FechaConsulta"),
-                            resul.getTime("HoraConsulta"),
-                            resul.getString("Sintomas"),
-                            resul.getString("Diagnostico"),
-                            resul.getString("Tratamiento")
+            List<Medicamentos> medicamentos = new ArrayList<>();
+            
+            // Verificar si la receta ya existe en la base de datos Neodatis
+            int idReceta = resul.getInt(1);
+            if (!comprobarReceta(idReceta)) {
+                // Obtener los medicamentos asociados a la receta
+                String sqlMedicamentos = "SELECT * FROM Medicamentos WHERE idReceta = " + idReceta;
+                Statement sentenciaMedicamentos = conexion.createStatement();
+                ResultSet resulMedicamentos = sentenciaMedicamentos.executeQuery(sqlMedicamentos);
+                
+                while (resulMedicamentos.next()) {
+                    Medicamentos medicamento = new Medicamentos(
+                            resulMedicamentos.getInt("MedicamentoID"),
+                            resulMedicamentos.getString("NombreMedicamento"),
+                            resulMedicamentos.getString("descripcion")
                     );
-
-                    // Insertar el objeto Consulta en Neodatis
-                    bd.store(consulta);
-
-                    System.out.println("Consulta insertada en Neodatis.");
-                } else {
-                    System.out.println("No se encontró el paciente en Neodatis.");
+                    medicamentos.add(medicamento);
                 }
+
+                // Crear un objeto Receta con la información obtenida de MySQL
+                Recetas receta = new Recetas(
+                        cont++,
+                        resul.getString("fecha"),
+                        resul.getString("nota")
+                );
+                
+                // Agregar los medicamentos a la receta
+                for (Medicamentos med : medicamentos) {
+                    receta.agregarMedicamento(med);
+                }
+
+                // Insertar el objeto Receta en Neodatis
+                bd.store(receta);
+
+                System.out.println("Receta insertada en Neodatis.");
             } else {
-                System.out.println("La consulta ya existe en Neodatis.");
+                System.out.println("La receta ya existe en Neodatis.");
             }
         }
+        bd.commit();
+        resul.close();
+    }
 
-    
-    private static boolean comprobarPaciente (int idPaciente) {
-    	try{
-    		IQuery consulta =new CriteriaQuery(Pacientes.class,Where.equal("idPaciente", idPaciente) );
-    	Pacientes obj = (Pacientes)
-    	bd.getObjects (consulta).getFirst();
-    	return true;
-    	}catch (IndexOutOfBoundsException e) {
-    	return false; }
-}
-    private static boolean comprobarConsulta (int idConsulta) {
-    	try{
-    		IQuery consulta =new CriteriaQuery(Consultas.class,Where.equal("idConsulta", idConsulta) );
-    	Pacientes obj = (Pacientes)
-    	bd.getObjects (consulta).getFirst();
-    	return true;
-    	}catch (IndexOutOfBoundsException e) {
-    	return false; }
-} 
+
+    private static boolean comprobarPaciente(int idPaciente) {
+        try {
+            IQuery consulta = new CriteriaQuery(Pacientes.class, Where.equal("idPaciente", idPaciente));
+            return bd.getObjects(consulta).hasNext();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
     private static boolean comprobarMedico(int idMedico) {
-	try{
-		IQuery consulta =new CriteriaQuery(Medicos.class,Where.equal("idMedico", idMedico) );
-		Medicos obj = (Medicos)
-	bd.getObjects(consulta).getFirst();
-	return true;
-	}catch (IndexOutOfBoundsException e) {
-	return false; }
+        try {
+            IQuery consulta = new CriteriaQuery(Medicos.class, Where.equal("idMedico", idMedico));
+            return bd.getObjects(consulta).hasNext();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
 
-}   
-private static boolean comprobarReceta(int idReceta) {
-	try{
-		IQuery consulta =new CriteriaQuery(Recetas.class,Where.equal("idReceta", idReceta) );
-	Recetas obj = (Recetas)
-	bd.getObjects (consulta).getFirst();
-	return true;
-	}catch (IndexOutOfBoundsException e) {
-	return false; }
+    private static boolean comprobarConsulta(int idConsulta) {
+        try {
+            IQuery consulta = new CriteriaQuery(Consultas.class, Where.equal("ConsultaID", idConsulta));
+            return bd.getObjects(consulta).hasNext();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
+    private static boolean comprobarMedicamento(int idMedicamento) {
+        try {
+            IQuery consulta = new CriteriaQuery(Medicamentos.class, Where.equal("idMedicamento", idMedicamento));
+            return bd.getObjects(consulta).hasNext();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
+    private static boolean comprobarReceta(int idReceta) {
+        try {
+            IQuery consulta = new CriteriaQuery(Recetas.class, Where.equal("idReceta", idReceta));
+            return bd.getObjects(consulta).hasNext();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
+    public static Pacientes obtenerPaciente(int idPaciente) {
+        Objects<Pacientes> pacientes = bd.getObjects(Pacientes.class);
+        while (pacientes.hasNext()) {
+            Pacientes paciente = pacientes.next();
+            if (paciente.getIdPaciente() == idPaciente) {
+                return paciente;
+            }
+        }
+        return null;
+    }
+
+    public static Medicos obtenerMedico(int idMedico) {
+        Objects<Medicos> medicos = bd.getObjects(Medicos.class);
+        while (medicos.hasNext()) {
+            Medicos medico = medicos.next();
+            if (medico.getIdMedico() == idMedico) {
+                return medico;
+            }
+        }
+        return null;
+    }
 }
-private static boolean comprobarMedicamento(int idMedicamento) {
-	try{
-		IQuery consulta =new CriteriaQuery(Medicamentos.class,Where.equal("idMedicamento", idMedicamento) );
-		Medicamentos obj = (Medicamentos)
-	bd.getObjects (consulta).getFirst();
-	return true;
-	}catch (IndexOutOfBoundsException e) {
-	return false; }
-}
-//Obtenciones 
-public static Pacientes obtenerPaciente(int idPaciente) {
-      // Realizar una consulta a la base de datos Neodatis para obtener el paciente por su ID
-      Objects<Pacientes> pacientes = bd.getObjects(Pacientes.class);
-      
-      // Recorrer los pacientes encontrados
-      while (pacientes.hasNext()) {
-          Pacientes paciente = pacientes.next();
-          
-          if (paciente.getIdPaciente() == idPaciente) {
-              return paciente;
-          }
-         
-      }
-		return null;
-
-
-      }
-//Obtenciones 
-public static Medicos obtenerMedico(int idMedico) {
-      // Realizar una consulta a la base de datos Neodatis para obtener el paciente por su ID
-      Objects<Medicos> medicos = bd.getObjects(Medicos.class);
-      
-      // Recorrer los pacientes encontrados
-      while (medicos.hasNext()) {
-          Medicos medico = medicos.next();
-          
-          if (medico.getIdMedico() == idMedico) {
-              return medico;
-          }
-         
-      }
-		return null;
-
-
-      }
-}
-
